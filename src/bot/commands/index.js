@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-/** Editar o index.js para deixar o bot online */
+/** Delete o comando index.js */
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('index')
