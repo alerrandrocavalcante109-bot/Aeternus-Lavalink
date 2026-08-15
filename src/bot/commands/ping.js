@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-/** Latencia */
+/** Edita o comando ping e deixe ele como você quizer mais sem embwd. */
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
