@@ -1,0 +1,17 @@
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+/** "msg": "npm: Command failed: npm install --omit=dev --no-audit --no-fund\\nnpm error code ENOENT\\nnpm error syscall open\\nnpm error path /tmp/aeternus-host/6a7fc */
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName('tmp')
+    .setDescription('Latencia')
+    .addStringOption((o) => o.setName('entrada').setDescription('Texto').setRequired(false)),
+  aliases: ['tmp'],
+  async execute(interaction) {
+    const entrada = interaction.options.getString('entrada') || 'Latencia';
+    return interaction.reply({ embeds: [new EmbedBuilder().setTitle('/tmp').setDescription(entrada).setColor(0x7c3aed)] });
+  },
+  async executePrefix(message, args) {
+    const texto = (args || []).join(' ') || 'Latencia';
+    return message.reply({ embeds: [new EmbedBuilder().setDescription(texto).setColor(0x7c3aed)] });
+  }
+};
