@@ -11,8 +11,11 @@ lavalink:
     sources:
       youtube: false
       soundcloud: true
-    bufferDurationMs: 400
+    bufferDurationMs: 1200
     frameBufferDurationMs: 5000
+    opusEncodingQuality: 10
+    resamplingQuality: HIGH
+    trackStuckThresholdMs: 10000
 
 plugins:
   youtube:
@@ -21,13 +24,13 @@ plugins:
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
     clients:
-      - MUSIC
-      - ANDROID
-      - WEB
       - IOS
+      - MUSIC
+      - WEB
+      - TVHTML5Embedded
     oauth:
-      enabled: true
-      refreshToken: "${YOUTUBE_REFRESH_TOKEN}"
+      enabled: false
+      refreshToken: "${YOUTUBE_REFRESH_TOKEN:}"
     potoken:
-      poToken: "${YOUTUBE_PO_TOKEN}"
-      visitorData: "${YOUTUBE_VISITOR_DATA}"
+      poToken: "${YOUTUBE_PO_TOKEN:}"
+      visitorData: "${YOUTUBE_VISITOR_DATA:}"

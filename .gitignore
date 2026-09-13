@@ -1,3 +1,13 @@
-.env
-*.log
+# Executáveis e downloads
+*.jar
+*.zip
+
+# Logs do Lavalink
 logs/
+*.log
+
+# Variáveis locais e configurações da IDE
+.env
+.idea/
+.vscode/
+.DS_Store
