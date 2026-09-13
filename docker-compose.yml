@@ -7,14 +7,37 @@ services:
     restart: unless-stopped
     environment:
       - LAVALINK_SERVER_PASSWORD=youshallnotpass
+      # Proteção YouTube
+      - LAVALINK_YOUTUBE_ENABLED=true
+      - LAVALINK_YOUTUBE_USE_HTTP_CLIENT_PROXY=true
+      # Timeouts
+      - LAVALINK_HTTP_CLIENT_CONNECT_TIMEOUT=30000
+      - LAVALINK_HTTP_CLIENT_READ_TIMEOUT=30000
+      - LAVALINK_HTTP_CLIENT_REQUEST_TIMEOUT=30000
     ports:
       - "2333:2333"
     volumes:
-      - ./lavalink/config.yml:/opt/Lavalink/application.yml
-      - ./lavalink/logs:/opt/Lavalink/logs
+      - ./application.yml:/opt/Lavalink/application.yml
+      - ./proxies.txt:/opt/Lavalink/proxies.txt:ro
+      - ./logs:/opt/Lavalink/logs
     networks:
-      - bot-network
+      - lavalink-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2333/loadbalance"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Limite de recursos para evitar travamentos
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
 
 networks:
-  bot-network:
+  lavalink-network:
     driver: bridge
