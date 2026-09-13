@@ -27,7 +27,7 @@ plugins:
       - MUSIC
       - IOS
       - WEB
-      - WEB_REMIX
+      - ANDROID
     oauth:
       enabled: true
       refreshToken: "${YOUTUBE_REFRESH_TOKEN:1//01-r9clFWh55LCgYIARAAGAESNwF-L9IrCFQSZNHAW1V17t2DrbkJTDqCW993fjXw6RS5qjgUjpVnIDRTqpIVCL6GLbpNY4WB8QU}"
