@@ -1,20 +1,13 @@
 server:
-  port: 2333
+  port: ${PORT:2333}
   address: 0.0.0.0
-
 lavalink:
   server:
-    password: "Aeternus-music"
+    password: "suasenhasegura"
     sources:
-      youtube: false
-
-  plugins:
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
-      repository: "https://maven.lavalink.dev/releases"
-      snapshot: false
-
-plugins:
-  youtube:
-    enabled: true
-    oauth:
-      enabled: true
+      youtube: true
+      soundcloud: true
+    bufferDurationMs: 400
+    frameBufferDurationMs: 5000
+    youtubeSearchEnabled: true
+    soundcloudSearchEnabled: true
