@@ -1,7 +1,75 @@
 # 🎵 Servidor Lavalink - ODISSEIA
 ## Com Proteção Anti-Bloqueio do YouTube ⚔️
+### Deploy Online no Render 🚀
 
-Servidor de áudio autossuficiente para Discord bots com sistema robusto de proteção contra bloqueios do YouTube.
+Servidor de áudio autossuficiente para Discord bots com sistema robusto de proteção contra bloqueios do YouTube. **Agora online 24/7 no Render!**
+
+## ⭐ Novo: Deploy no Render
+
+### 🚀 Deploy em 5 Minutos
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/alerrandrocavalcante109-bot/ODISSEIA-.git
+cd ODISSEIA-
+
+# 2. Execute o script de deploy
+chmod +x deploy-render.sh
+./deploy-render.sh
+
+# 3. Siga as instruções
+```
+
+### 📋 Passo a Passo Manual
+
+1. **Acesse o Render:**
+   - Vá para https://dashboard.render.com
+   - Faça login com GitHub
+
+2. **Criar Web Service:**
+   - Clique em "New +" → "Web Service"
+   - Selecione seu repositório: `alerrandrocavalcante109-bot/ODISSEIA-`
+
+3. **Configurar:**
+   - **Name:** lavalink-server
+   - **Environment:** Docker
+   - **Region:** Oregon (ou mais próximo)
+   - **Plan:** Standard ($12/mês)
+
+4. **Variáveis de Ambiente:**
+   ```
+   LAVALINK_SERVER_PASSWORD=youshallnotpass
+   LAVALINK_YOUTUBE_ENABLED=true
+   LAVALINK_YOUTUBE_USE_HTTP_CLIENT_PROXY=true
+   ```
+
+5. **Deploy:**
+   - Clique em "Create Web Service"
+   - Aguarde 5-10 minutos
+
+## 🌐 Acessar Seu Servidor
+
+Após deploy no Render, seu servidor estará disponível em:
+
+```
+https://lavalink-server.onrender.com:2333
+```
+
+### Conectar ao Bot Discord
+
+```javascript
+const player = new Player(client, {
+  nodes: [
+    {
+      identifier: 'main',
+      hostname: 'lavalink-server.onrender.com',
+      port: 2333,
+      password: 'youshallnotpass',
+      secure: false,
+    },
+  ],
+});
+```
 
 ## 🛡️ Sistema de Proteção do YouTube
 
@@ -28,53 +96,22 @@ Este servidor inclui múltiplas camadas de proteção:
 - Timeout de conexão: 30s
 - Timeout de leitura: 30s
 
-## 🚀 Início Rápido
-
-### Instalação Básica
-```bash
-git clone https://github.com/alerrandrocavalcante109-bot/ODISSEIA-.git
-cd ODISSEIA-
-docker-compose up -d
-```
-
-### Instalação com Proteção Máxima
-```bash
-chmod +x protect-youtube.sh
-./protect-youtube.sh
-```
-
-## 📝 Configurar Proxies (Opcional)
-
-Edite o arquivo `proxies.txt`:
+## 📁 Estrutura do Projeto
 
 ```
-http://seu-proxy-1.com:8080
-socks5://seu-proxy-2.com:1080
-http://seu-proxy-3.com:3128
-```
-
-Depois reinicie o container:
-```bash
-docker-compose restart lavalink
-```
-
-## 🔧 Configuração
-
-### Credenciais Padrão
-- **Host:** localhost
-- **Porta:** 2333
-- **Senha:** youshallnotpass
-
-### Alterar Configurações
-
-Edite o arquivo `application.yml`:
-
-```yaml
-youtube:
-  useHttpClientProxy: true
-  maxRetries: 3
-  retryDelay: 1000
-  rateLimitDelay: 500
+ODISSEIA-/
+├── docker-compose.yml          # Para uso local
+├── application.yml              # Configuração com proteção
+├── Dockerfile                   # Para deploy no Render
+├── render.yaml                  # Config do Render
+├── Procfile                     # Processo para Render
+├── proxies.txt                  # Lista de proxies
+├── deploy-render.sh             # Script de deploy
+├── protect-youtube.sh           # Script local de proteção
+├── YOUTUBE-PROTECTION.md        # Guia de proteção
+├── .env.example                 # Variáveis de exemplo
+├── README.md
+└── LICENSE
 ```
 
 ## 🎵 Plataformas Suportadas
@@ -87,136 +124,124 @@ youtube:
 - ✅ Vimeo
 - ✅ HTTP (URLs diretas)
 
-## 📊 Status do Servidor
+## 📊 Monitorar Servidor
 
-Verificar se está funcionando:
-
+### Verificar Status
 ```bash
-curl http://localhost:2333/loadbalance
+curl https://lavalink-server.onrender.com:2333/loadbalance
 ```
 
-## 🐳 Comandos Docker
+### Ver Logs no Render
+1. Acesse https://dashboard.render.com
+2. Clique no seu serviço "lavalink-server"
+3. Vá para "Logs"
 
-### Iniciar
-```bash
-docker-compose up -d
-```
+## 💰 Custo
 
-### Parar
-```bash
-docker-compose down
-```
+- **Plan Standard:** $12/mês
+- **Inclui:** 750 horas/mês
+- **Suficiente para:** 24/7 contínuo
 
-### Logs
-```bash
-docker-compose logs -f lavalink
-```
+## 🆘 Troubleshooting
 
-### Reiniciar
-```bash
-docker-compose restart lavalink
-```
+### Deployment falha
 
-## 🔌 Conectar um Bot Discord
+1. Verifique se o repositório está correto
+2. Confirme as variáveis de ambiente
+3. Verifique os logs no dashboard do Render
+
+### YouTube bloqueado
+
+1. Adicione proxies a `proxies.txt`
+2. Aumente `rateLimitDelay` em `application.yml`
+3. Redeploy no Render
+
+### Conexão recusada
+
+1. Aguarde 5-10 minutos após deploy
+2. Verifique a porta: 2333
+3. Reinicie o serviço no Render
+
+## 🔐 Segurança
+
+### Mude a Senha!
+
+**IMPORTANTE:** Altere a senha padrão!
+
+1. Acesse seu dashboard do Render
+2. Clique no serviço "lavalink-server"
+3. Vá para "Environment"
+4. Altere `LAVALINK_SERVER_PASSWORD`
+5. Clique "Deploy"
+
+### Usar HTTPS
+
+Para usar HTTPS (seguro), configure:
 
 ```javascript
 const player = new Player(client, {
   nodes: [
     {
       identifier: 'main',
-      hostname: 'localhost',
+      hostname: 'lavalink-server.onrender.com',
       port: 2333,
-      password: 'youshallnotpass',
-      secure: false,
+      password: 'sua_nova_senha',
+      secure: true,  // HTTPS
     },
   ],
 });
 ```
 
-## 📁 Estrutura
+## 📖 Documentação Completa
 
-```
-ODISSEIA-/
-├── docker-compose.yml       # Docker Compose
-├── application.yml          # Configuração com proteção
-├── proxies.txt             # Lista de proxies
-├── protect-youtube.sh      # Script de proteção
-├── logs/                   # Logs do servidor
-├── README.md
-└── LICENSE
+Para mais informações sobre proteção do YouTube, veja: `YOUTUBE-PROTECTION.md`
+
+## 🚀 Comandos Úteis
+
+### Deploy Local com Docker
+```bash
+docker-compose up -d
 ```
 
-## ⚙️ Filtros Disponíveis
+### Deploy Remoto no Render
+```bash
+chmod +x deploy-render.sh
+./deploy-render.sh
+```
 
-- Volume
-- Equalizador
-- Karaokê
-- Timescale
-- Tremolo
-- Vibrato
-- Distorção
-- Rotação
-- Channel Mix
-- Low Pass
-
-## 🆘 Troubleshooting
-
-### YouTube continua bloqueando
-1. Adicione proxies ao arquivo `proxies.txt`
-2. Aumente o `retryDelay` em `application.yml`
-3. Reduza o `rateLimitDelay`
-4. Reinicie: `docker-compose restart lavalink`
-
-### Conexão lenta
-- Verifique os logs: `docker-compose logs -f lavalink`
-- Reduza `playerUpdateInterval` em `application.yml`
-
-### Porta 2333 já em uso
+### Parar Servidor Local
 ```bash
 docker-compose down
 ```
 
-### Verificar logs detalhados
-```bash
-docker-compose logs lavalink | grep -i youtube
-```
-
-## 🔐 Segurança
-
-- Senha padrão: `youshallnotpass`
-- **Mude a senha em produção!**
-
-Para mudar a senha:
-1. Edite `application.yml`
-2. Altere `password: "sua_nova_senha"`
-3. Reinicie: `docker-compose restart lavalink`
-
-## 🚨 Se Bloqueado
-
-Se o YouTube bloquear o Lavalink:
-
-1. **Aguarde 24 horas** - O bloqueio é temporário
-2. **Use proxies** - Configure em `proxies.txt`
-3. **Altere IPs** - Reinicie o container
-4. **Aumente delays** - Edite `application.yml`
-
-## 📞 Suporte
-
-Para problemas, verifique os logs:
+### Ver Logs
 ```bash
 docker-compose logs -f lavalink
 ```
+
+## 📞 Suporte
+
+- Docs do Render: https://render.com/docs
+- GitHub: https://github.com/alerrandrocavalcante109-bot/ODISSEIA-
+- Lavalink: https://lavalink.dev
 
 ## 📝 Licença
 
 MIT
 
-## ⭐ Recursos Destacados
+## ⭐ Features
 
 ✅ Proteção contra bloqueios do YouTube  
 ✅ Retry automático  
 ✅ Rate limiting  
 ✅ Suporte a proxies  
 ✅ Rotação de User-Agent  
+✅ Deploy online 24/7  
 ✅ Fácil configuração  
 ✅ Docker automatizado  
+
+---
+
+**✨ Seu servidor Lavalink está online 24/7 no Render! 🎵🚀**
+
+Acesse: **https://github.com/alerrandrocavalcante109-bot/ODISSEIA-**
