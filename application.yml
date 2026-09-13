@@ -4,7 +4,7 @@ server:
 
 lavalink:
   plugins:
-    - dependency: "devs.lavalink.youtube:youtube-plugin:1.11.0"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.11.4"
       repository: "https://maven.lavalink.dev/releases"
   server:
     password: "suasenhasegura"
