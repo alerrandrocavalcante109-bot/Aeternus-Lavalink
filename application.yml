@@ -4,7 +4,7 @@ server:
 
 lavalink:
   plugins:
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.11.4"
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
       repository: "https://maven.lavalink.dev/releases"
   server:
     password: "Aeternus-music"
@@ -26,3 +26,4 @@ plugins:
       - WEB
     oauth:
       enabled: true
+      refreshToken: "1//01pVJCROVF2M-CgYIARAAGAESNwF-L9IrwH1UuDI-_D5Cb8sizqxQRBc3RMV2CUTJJVaT_YiSbh47cpMWg8VPKwrL9TkNyac6KK8"
