@@ -7,7 +7,7 @@ lavalink:
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
       repository: "https://maven.lavalink.dev/releases"
   server:
-    password: "Aeternus-music"
+    password: "${LAVALINK_PASSWORD:Aeternus-music}"
     sources:
       youtube: false
       soundcloud: true
@@ -21,10 +21,11 @@ plugins:
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
     clients:
-      - TVHTML5
       - MUSIC
       - ANDROID_VR
       - WEB
+      - WEB_REMIX
+      - TVHTML5EMBEDDED
     oauth:
       enabled: true
-      refreshToken: "1//01pVJCROVF2M-CgYIARAAGAESNwF-L9IrwH1UuDI-_D5Cb8sizqxQRBc3RMV2CUTJJVaT_YiSbh47cpMWg8VPKwrL9TkNyac6KK8"
+      refreshToken: "${YOUTUBE_REFRESH_TOKEN}"
