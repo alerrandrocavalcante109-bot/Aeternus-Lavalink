@@ -7,7 +7,7 @@ lavalink:
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.11.4"
       repository: "https://maven.lavalink.dev/releases"
   server:
-    password: "suasenhasegura"
+    password: "Aeternus-music"
     sources:
       youtube: false
       soundcloud: true
