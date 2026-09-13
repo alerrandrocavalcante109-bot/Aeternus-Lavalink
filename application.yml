@@ -31,6 +31,27 @@ lavalink:
     youtubeSearchLowestRate: 1
     gc-warnings: true
 
+# YouTube Anti-Block Configuration
+youtube:
+  # Usar proxies para evitar bloqueios
+  useHttpClientProxy: true
+  # Timeouts
+  searchTimeout: 10
+  loadTimeout: 30
+  # Retry configuration
+  maxRetries: 3
+  retryDelay: 1000
+  # Rate limiting
+  rateLimitDelay: 500
+  # User-Agent rotation
+  rotateUserAgent: true
+
+# HTTP Client Configuration
+httpClient:
+  connectTimeout: 30000
+  readTimeout: 30000
+  requestTimeout: 30000
+
 metrics:
   prometheus:
     enabled: false
@@ -48,3 +69,4 @@ logging:
   level:
     root: INFO
     lavalink: INFO
+    lavalink.server.io.jda.gateway: WARN
