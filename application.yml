@@ -22,10 +22,12 @@ plugins:
     allowDirectPlaylistIds: true
     clients:
       - MUSIC
-      - ANDROID_VR
-      - WEB
       - ANDROID
+      - WEB
       - IOS
     oauth:
       enabled: true
       refreshToken: "${YOUTUBE_REFRESH_TOKEN}"
+    potoken:
+      poToken: "${YOUTUBE_PO_TOKEN}"
+      visitorData: "${YOUTUBE_VISITOR_DATA}"
