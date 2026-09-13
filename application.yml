@@ -4,12 +4,12 @@ server:
 
 lavalink:
   plugins:
-    - dependency: "devs.lavalink.youtube:youtube-plugin:1.11.4" # Adiciona plugin atualizado
+    - dependency: "devs.lavalink.youtube:youtube-plugin:1.11.1"
       repository: "https://maven.lavalink.dev/releases"
   server:
     password: "suasenhasegura"
     sources:
-      youtube: false # Desativa a fonte antiga nativa para usar o plugin
+      youtube: false
       soundcloud: true
     bufferDurationMs: 400
     frameBufferDurationMs: 5000
@@ -25,4 +25,4 @@ plugins:
       - ANDROID_VR
       - WEB
     oauth:
-      enabled: true # Ativa autenticação por código do Google
+      enabled: true
