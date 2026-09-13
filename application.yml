@@ -4,69 +4,17 @@ server:
 
 lavalink:
   server:
-    password: "youshallnotpass"
+    password: "Aeternus-music"
     sources:
-      youtube: true
-      bandcamp: true
-      soundcloud: true
-      twitch: true
-      vimeo: true
-      mixer: true
-      http: true
-      local: false
-    filters:
-      volume: true
-      equalizer: true
-      karaoke: true
-      timescale: true
-      tremolo: true
-      vibrato: true
-      distortion: true
-      rotation: true
-      channelmix: true
-      lowpass: true
-    bufferDurationMs: 400
-    youtubePlaylistLoadLimit: 6
-    playerUpdateInterval: 5
-    youtubeSearchLowestRate: 1
-    gc-warnings: true
+      youtube: false
 
-# YouTube Anti-Block Configuration
-youtube:
-  # Usar proxies para evitar bloqueios
-  useHttpClientProxy: true
-  # Timeouts
-  searchTimeout: 10
-  loadTimeout: 30
-  # Retry configuration
-  maxRetries: 3
-  retryDelay: 1000
-  # Rate limiting
-  rateLimitDelay: 500
-  # User-Agent rotation
-  rotateUserAgent: true
+  plugins:
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
+      repository: "https://maven.lavalink.dev/releases"
+      snapshot: false
 
-# HTTP Client Configuration
-httpClient:
-  connectTimeout: 30000
-  readTimeout: 30000
-  requestTimeout: 30000
-
-metrics:
-  prometheus:
-    enabled: false
-    endpoint: /metrics
-
-sentry:
-  dsn: ""
-  environment: ""
-  tags: {}
-
-logging:
-  file:
-    max-history: 30
-    max-size: 1GB
-  level:
-    root: INFO
-    lavalink: INFO
-    lavalink.server.io.jda.gateway: WARN
+plugins:
+  youtube:
+    enabled: true
+    oauth:
+      enabled: true
