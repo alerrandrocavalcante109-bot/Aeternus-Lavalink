@@ -29,7 +29,7 @@ plugins:
       - WEB
       - TVHTML5Embedded
     oauth:
-      enabled: false
+      enabled: true
       refreshToken: "${YOUTUBE_REFRESH_TOKEN:}"
     potoken:
       poToken: "${YOUTUBE_PO_TOKEN:}"
