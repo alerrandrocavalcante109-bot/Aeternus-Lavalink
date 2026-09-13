@@ -24,10 +24,10 @@ plugins:
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
     clients:
+      - TVHTML5EMBEDDED
       - IOS
       - MUSIC
       - WEB
-      - TVHTML5Embedded
     oauth:
       enabled: true
       refreshToken: "${YOUTUBE_REFRESH_TOKEN:}"
