@@ -31,11 +31,3 @@ plugins:
     oauth:
       enabled: true
       refreshToken: "${YOUTUBE_REFRESH_TOKEN:1//01-r9clFWh55LCgYIARAAGAESNwF-L9IrCFQSZNHAW1V17t2DrbkJTDqCW993fjXw6RS5qjgUjpVnIDRTqpIVCL6GLbpNY4WB8QU}"
-    potoken:
-      poToken: "${YOUTUBE_PO_TOKEN:}"
-      visitorData: "${YOUTUBE_VISITOR_DATA:}"
-    proxy:
-      host: "${PROXY_HOST:}"
-      port: ${PROXY_PORT:8080}
-      user: "${PROXY_USER:}"
-      password: "${PROXY_PASSWORD:}"
