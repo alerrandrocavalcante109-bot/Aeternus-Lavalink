@@ -2,7 +2,8 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /opt/Lavalink
 
-# Instala dependências nativas C/C++ (gcompat, libgcc) e baixa o Lavalink
+ARG LAVALINK_VERSION=4.2.2
+
 RUN apk add --no-cache \
     curl \
     fontconfig \
@@ -11,10 +12,13 @@ RUN apk add --no-cache \
     gcompat \
     libgcc \
     libstdc++ && \
-    curl -sSL "https://github.com/lavalink-devs/Lavalink/releases/download/4.2.2/Lavalink.jar" -o Lavalink.jar
+    curl -fsSL "https://github.com/lavalink-devs/Lavalink/releases/download/${LAVALINK_VERSION}/Lavalink.jar" -o Lavalink.jar
 
 COPY application.yml application.yml
 
+# Render / hosts usam PORT dinâmico; application.yml lê ${PORT:2333}
 EXPOSE 2333
 
-CMD ["java", "-Xms128m", "-Xmx450m", "-XX:+UseG1GC", "-XX:+ShrinkHeapInSteps", "-jar", "Lavalink.jar"]
+ENV JAVA_OPTS="-Xms128m -Xmx450m -XX:+UseG1GC -XX:+ShrinkHeapInSteps"
+
+CMD ["sh", "-c", "java $JAVA_OPTS -jar Lavalink.jar"]

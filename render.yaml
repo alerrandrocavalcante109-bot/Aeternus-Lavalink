@@ -1,15 +1,17 @@
 services:
   - type: web
     name: aeternus-lavalink
-    env: docker
+    runtime: docker
     plan: free
-    healthCheckPath: /
+    healthCheckPath: /version
     envVars:
       - key: PORT
-        value: 10000
+        value: "10000"
       - key: LAVALINK_PASSWORD
         generateValue: true
-      - key: YOUTUBE_PO_TOKEN
-        sync: false
-      - key: YOUTUBE_VISITOR_DATA
+      - key: YOUTUBE_OAUTH_ENABLED
+        value: "true"
+      - key: YOUTUBE_OAUTH_SKIP_INIT
+        value: "true"
+      - key: YOUTUBE_REFRESH_TOKEN
         sync: false

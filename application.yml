@@ -1,4 +1,5 @@
 server:
+  # Render/Discloud injetam PORT; local usa 2333
   port: ${PORT:2333}
   address: 0.0.0.0
 
@@ -6,16 +7,37 @@ lavalink:
   plugins:
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
       repository: "https://maven.lavalink.dev/releases"
+
   server:
     password: "${LAVALINK_PASSWORD:Aeternus-music}"
     sources:
+      # YouTube nativo OFF — usa o plugin (youtube-plugin)
       youtube: false
+      bandcamp: true
       soundcloud: true
-    bufferDurationMs: 1200
+      twitch: true
+      vimeo: true
+      http: true
+      local: false
+    filters:
+      volume: true
+      equalizer: true
+      karaoke: true
+      timescale: true
+      tremolo: true
+      vibrato: true
+      distortion: true
+      rotation: true
+      channelMix: true
+      lowPass: true
+    bufferDurationMs: 400
     frameBufferDurationMs: 5000
     opusEncodingQuality: 10
-    resamplingQuality: HIGH
+    resamplingQuality: LOW
     trackStuckThresholdMs: 10000
+    youtubePlaylistLoadLimit: 100
+    playerUpdateInterval: 5
+    gc-warnings: true
 
 plugins:
   youtube:
@@ -23,11 +45,26 @@ plugins:
     allowSearch: true
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
+    # Clientes estáveis (ordem importa)
     clients:
       - MUSIC
+      - ANDROID_VR
       - WEB
-      - IOS
-      - TV
+      - TVHTML5EMBEDDED
+      - MWEB
     oauth:
-      enabled: true
-      refreshToken: "${YOUTUBE_REFRESH_TOKEN:1//01-r9clFWh55LCgYIARAAGAESNwF-L9IrCFQSZNHAW1V17t2DrbkJTDqCW993fjXw6RS5qjgUjpVnIDRTqpIVCL6GLbpNY4WB8QU}"
+      # Deixe o token só no ENV — nunca commitar refresh token real
+      enabled: ${YOUTUBE_OAUTH_ENABLED:true}
+      refreshToken: "${YOUTUBE_REFRESH_TOKEN:}"
+      # true = não imprime device-code no log (use se já tiver refreshToken)
+      skipInitialization: ${YOUTUBE_OAUTH_SKIP_INIT:true}
+
+metrics:
+  prometheus:
+    enabled: false
+    endpoint: /metrics
+
+logging:
+  level:
+    root: INFO
+    lavalink: INFO

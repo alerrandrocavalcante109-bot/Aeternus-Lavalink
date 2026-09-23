@@ -1,247 +1,73 @@
-# 🎵 Servidor Lavalink - ODISSEIA
-## Com Proteção Anti-Bloqueio do YouTube ⚔️
-### Deploy Online no Render 🚀
+# Aeternus Lavalink
 
-Servidor de áudio autossuficiente para Discord bots com sistema robusto de proteção contra bloqueios do YouTube. **Agora online 24/7 no Render!**
+Servidor **Lavalink 4.2.2** + **youtube-plugin 1.18.2** para o bot Aeternus.
 
-## ⭐ Novo: Deploy no Render
+## Variáveis
 
-### 🚀 Deploy em 5 Minutos
+| ENV | Descrição |
+|-----|-----------|
+| `PORT` | Porta HTTP (padrão `2333`; Render usa `10000`) |
+| `LAVALINK_PASSWORD` | Senha do node (padrão `Aeternus-music`) |
+| `YOUTUBE_REFRESH_TOKEN` | OAuth do plugin YouTube (recomendado) |
+| `YOUTUBE_OAUTH_ENABLED` | `true`/`false` |
+
+## Conectar no bot Aeternus
+
+No host do **bot** (não neste repo):
+
+```env
+LAVALINK_NODES=aeternus|SEU_HOST:PORTA|SUA_SENHA|true
+```
+
+Exemplos:
+
+```env
+# HTTP local
+LAVALINK_NODES=aeternus|127.0.0.1:2333|Aeternus-music|false
+
+# Render / HTTPS (porta 443 do proxy → app na PORT)
+LAVALINK_NODES=aeternus|aeternus-lavalink.onrender.com:443|SENHA_DO_RENDER|true
+```
+
+Formato Shoukaku: `nome|host:porta|senha|secure`
+
+## Local (Docker)
 
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/alerrandrocavalcante109-bot/ODISSEIA-.git
-cd ODISSEIA-
-
-# 2. Execute o script de deploy
-chmod +x deploy-render.sh
-./deploy-render.sh
-
-# 3. Siga as instruções
+cp .env.example .env
+# edite LAVALINK_PASSWORD e YOUTUBE_REFRESH_TOKEN se quiser
+docker compose up -d --build
+curl -s http://127.0.0.1:2333/version
 ```
 
-### 📋 Passo a Passo Manual
+## Local (Java)
 
-1. **Acesse o Render:**
-   - Vá para https://dashboard.render.com
-   - Faça login com GitHub
-
-2. **Criar Web Service:**
-   - Clique em "New +" → "Web Service"
-   - Selecione seu repositório: `alerrandrocavalcante109-bot/ODISSEIA-`
-
-3. **Configurar:**
-   - **Name:** lavalink-server
-   - **Environment:** Docker
-   - **Region:** Oregon (ou mais próximo)
-   - **Plan:** Standard ($12/mês)
-
-4. **Variáveis de Ambiente:**
-   ```
-   LAVALINK_SERVER_PASSWORD=youshallnotpass
-   LAVALINK_YOUTUBE_ENABLED=true
-   LAVALINK_YOUTUBE_USE_HTTP_CLIENT_PROXY=true
-   ```
-
-5. **Deploy:**
-   - Clique em "Create Web Service"
-   - Aguarde 5-10 minutos
-
-## 🌐 Acessar Seu Servidor
-
-Após deploy no Render, seu servidor estará disponível em:
-
-```
-https://lavalink-server.onrender.com:2333
-```
-
-### Conectar ao Bot Discord
-
-```javascript
-const player = new Player(client, {
-  nodes: [
-    {
-      identifier: 'main',
-      hostname: 'lavalink-server.onrender.com',
-      port: 2333,
-      password: 'youshallnotpass',
-      secure: false,
-    },
-  ],
-});
-```
-
-## 🛡️ Sistema de Proteção do YouTube
-
-Este servidor inclui múltiplas camadas de proteção:
-
-### 1. **Rotação de User-Agent**
-- Alterna entre diferentes navegadores
-- Evita bloqueios por identificação
-
-### 2. **Retry Automático**
-- 3 tentativas de reconexão automática
-- Delay de 1 segundo entre tentativas
-
-### 3. **Rate Limiting**
-- 500ms entre requisições
-- Evita banimento por excesso de requisições
-
-### 4. **HTTP Client Proxy**
-- Suporte a proxies HTTP e SOCKS5
-- Rotação de IPs disponível
-
-### 5. **Timeouts Inteligentes**
-- Timeout de carga: 30s
-- Timeout de conexão: 30s
-- Timeout de leitura: 30s
-
-## 📁 Estrutura do Projeto
-
-```
-ODISSEIA-/
-├── docker-compose.yml          # Para uso local
-├── application.yml              # Configuração com proteção
-├── Dockerfile                   # Para deploy no Render
-├── render.yaml                  # Config do Render
-├── Procfile                     # Processo para Render
-├── proxies.txt                  # Lista de proxies
-├── deploy-render.sh             # Script de deploy
-├── protect-youtube.sh           # Script local de proteção
-├── YOUTUBE-PROTECTION.md        # Guia de proteção
-├── .env.example                 # Variáveis de exemplo
-├── README.md
-└── LICENSE
-```
-
-## 🎵 Plataformas Suportadas
-
-- ✅ YouTube (com proteção)
-- ✅ Spotify
-- ✅ SoundCloud
-- ✅ Bandcamp
-- ✅ Twitch
-- ✅ Vimeo
-- ✅ HTTP (URLs diretas)
-
-## 📊 Monitorar Servidor
-
-### Verificar Status
 ```bash
-curl https://lavalink-server.onrender.com:2333/loadbalance
+chmod +x start.sh
+./start.sh
 ```
 
-### Ver Logs no Render
-1. Acesse https://dashboard.render.com
-2. Clique no seu serviço "lavalink-server"
-3. Vá para "Logs"
+## Render
 
-## 💰 Custo
+1. New → Web Service → este repositório
+2. Runtime: **Docker**
+3. Defina `LAVALINK_PASSWORD` (não use a senha padrão em produção)
+4. Opcional: `YOUTUBE_REFRESH_TOKEN`
+5. Health check: `/version`
 
-- **Plan Standard:** $12/mês
-- **Inclui:** 750 horas/mês
-- **Suficiente para:** 24/7 contínuo
+> No plano free o serviço dorme sem tráfego. Para música 24/7 use plano pago ou outro host (VPS / Discloud com Java).
 
-## 🆘 Troubleshooting
+## Health
 
-### Deployment falha
-
-1. Verifique se o repositório está correto
-2. Confirme as variáveis de ambiente
-3. Verifique os logs no dashboard do Render
-
-### YouTube bloqueado
-
-1. Adicione proxies a `proxies.txt`
-2. Aumente `rateLimitDelay` em `application.yml`
-3. Redeploy no Render
-
-### Conexão recusada
-
-1. Aguarde 5-10 minutos após deploy
-2. Verifique a porta: 2333
-3. Reinicie o serviço no Render
-
-## 🔐 Segurança
-
-### Mude a Senha!
-
-**IMPORTANTE:** Altere a senha padrão!
-
-1. Acesse seu dashboard do Render
-2. Clique no serviço "lavalink-server"
-3. Vá para "Environment"
-4. Altere `LAVALINK_SERVER_PASSWORD`
-5. Clique "Deploy"
-
-### Usar HTTPS
-
-Para usar HTTPS (seguro), configure:
-
-```javascript
-const player = new Player(client, {
-  nodes: [
-    {
-      identifier: 'main',
-      hostname: 'lavalink-server.onrender.com',
-      port: 2333,
-      password: 'sua_nova_senha',
-      secure: true,  // HTTPS
-    },
-  ],
-});
-```
-
-## 📖 Documentação Completa
-
-Para mais informações sobre proteção do YouTube, veja: `YOUTUBE-PROTECTION.md`
-
-## 🚀 Comandos Úteis
-
-### Deploy Local com Docker
 ```bash
-docker-compose up -d
+curl -s http://HOST:PORT/version
+# ou
+curl -s -H "Authorization: SENHA" http://HOST:PORT/v4/info
 ```
 
-### Deploy Remoto no Render
-```bash
-chmod +x deploy-render.sh
-./deploy-render.sh
-```
+## Notas
 
-### Parar Servidor Local
-```bash
-docker-compose down
-```
-
-### Ver Logs
-```bash
-docker-compose logs -f lavalink
-```
-
-## 📞 Suporte
-
-- Docs do Render: https://render.com/docs
-- GitHub: https://github.com/alerrandrocavalcante109-bot/ODISSEIA-
-- Lavalink: https://lavalink.dev
-
-## 📝 Licença
-
-MIT
-
-## ⭐ Features
-
-✅ Proteção contra bloqueios do YouTube  
-✅ Retry automático  
-✅ Rate limiting  
-✅ Suporte a proxies  
-✅ Rotação de User-Agent  
-✅ Deploy online 24/7  
-✅ Fácil configuração  
-✅ Docker automatizado  
-
----
-
-**✨ Seu servidor Lavalink está online 24/7 no Render! 🎵🚀**
-
-Acesse: **https://github.com/alerrandrocavalcante109-bot/ODISSEIA-**
+- Fonte YouTube nativa está **desligada**; o plugin cuida do YouTube.
+- SoundCloud funciona sem OAuth.
+- **Nunca** commite `YOUTUBE_REFRESH_TOKEN` no Git.
+- `lavalink/config.yml` é legado — a config ativa é `application.yml`.
