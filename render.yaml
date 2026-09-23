@@ -8,10 +8,12 @@ services:
       - key: PORT
         value: "10000"
       - key: LAVALINK_PASSWORD
-        generateValue: true
+        value: "AeternusL4v@2026"
       - key: YOUTUBE_OAUTH_ENABLED
         value: "true"
       - key: YOUTUBE_OAUTH_SKIP_INIT
         value: "true"
       - key: YOUTUBE_REFRESH_TOKEN
         sync: false
+      - key: YOUTUBE_CIPHER_URL
+        value: "https://cipher.kikkia.dev/"

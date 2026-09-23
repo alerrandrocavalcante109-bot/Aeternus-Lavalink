@@ -1,5 +1,5 @@
 server:
-  # Render/Discloud injetam PORT; local usa 2333
+  # Local: 2333 | Render/Discloud: usam a PORT do host
   port: ${PORT:2333}
   address: 0.0.0.0
 
@@ -9,9 +9,9 @@ lavalink:
       repository: "https://maven.lavalink.dev/releases"
 
   server:
-    password: "${LAVALINK_PASSWORD:Aeternus-music}"
+    # Senha fixa do Aeternus (pode sobrescrever com LAVALINK_PASSWORD no host)
+    password: "${LAVALINK_PASSWORD:AeternusL4v@2026}"
     sources:
-      # YouTube nativo OFF — usa o plugin (youtube-plugin)
       youtube: false
       bandcamp: true
       soundcloud: true
@@ -35,7 +35,7 @@ lavalink:
     opusEncodingQuality: 10
     resamplingQuality: LOW
     trackStuckThresholdMs: 10000
-    youtubePlaylistLoadLimit: 100
+    youtubePlaylistLoadLimit: 50
     playerUpdateInterval: 5
     gc-warnings: true
 
@@ -45,19 +45,47 @@ plugins:
     allowSearch: true
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
-    # Clientes estáveis (ordem importa)
+    # Ordem pensada para menos bloqueio (busca vs playback)
     clients:
       - MUSIC
       - ANDROID_VR
-      - WEB
       - TVHTML5EMBEDDED
+      - WEB
       - MWEB
+      - IOS
+    clientOptions:
+      MUSIC:
+        playback: false
+        videoLoading: false
+        searching: true
+      ANDROID_VR:
+        playback: true
+        videoLoading: true
+        searching: false
+      TVHTML5EMBEDDED:
+        playback: true
+        videoLoading: true
+        searching: false
+      WEB:
+        playback: false
+        videoLoading: true
+        searching: true
+      MWEB:
+        playback: false
+        videoLoading: true
+        searching: true
+      IOS:
+        playback: true
+        videoLoading: true
+        searching: false
     oauth:
-      # Deixe o token só no ENV — nunca commitar refresh token real
       enabled: ${YOUTUBE_OAUTH_ENABLED:true}
       refreshToken: "${YOUTUBE_REFRESH_TOKEN:}"
-      # true = não imprime device-code no log (use se já tiver refreshToken)
       skipInitialization: ${YOUTUBE_OAUTH_SKIP_INIT:true}
+    # Cipher remoto público (ajuda quando o YouTube muda o player)
+    remoteCipher:
+      url: "${YOUTUBE_CIPHER_URL:https://cipher.kikkia.dev/}"
+      userAgent: "Aeternus-Lavalink"
 
 metrics:
   prometheus:

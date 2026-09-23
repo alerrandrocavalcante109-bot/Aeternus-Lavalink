@@ -5,17 +5,17 @@ services:
     restart: unless-stopped
     environment:
       PORT: "2333"
-      LAVALINK_PASSWORD: "${LAVALINK_PASSWORD:-Aeternus-music}"
+      LAVALINK_PASSWORD: "${LAVALINK_PASSWORD:-AeternusL4v@2026}"
       YOUTUBE_REFRESH_TOKEN: "${YOUTUBE_REFRESH_TOKEN:-}"
       YOUTUBE_OAUTH_ENABLED: "${YOUTUBE_OAUTH_ENABLED:-true}"
       YOUTUBE_OAUTH_SKIP_INIT: "${YOUTUBE_OAUTH_SKIP_INIT:-true}"
+      YOUTUBE_CIPHER_URL: "${YOUTUBE_CIPHER_URL:-https://cipher.kikkia.dev/}"
     ports:
       - "2333:2333"
     volumes:
       - ./application.yml:/opt/Lavalink/application.yml:ro
       - ./logs:/opt/Lavalink/logs
     healthcheck:
-      # Endpoint real do Lavalink v4
       test: ["CMD", "curl", "-f", "http://127.0.0.1:2333/version"]
       interval: 30s
       timeout: 10s
